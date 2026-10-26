@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: hpms-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ENV
+        value: production
+      - key: CORS_ORIGINS
+        sync: false   # e.g. https://your-app.vercel.app
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: TURNSTILE_SECRET
+        sync: false
+      - key: GOOGLE_MAPS_SERVER_KEY
+        sync: false
+      - key: HASH_PEPPER
+        generateValue: true
+      - key: WEBHOOK_SECRET
+        generateValue: true
